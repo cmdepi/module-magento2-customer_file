@@ -195,7 +195,7 @@ class Uploader extends Template
      */
     public function getAttributeAllowedExtensionsJson()
     {
-        return $this->_json->serialize(implode(',', $this->_attribute->getAllowedExtensions()));
+        return $this->_json->serialize($this->_attribute->getAllowedExtensions());
     }
 
     /**
