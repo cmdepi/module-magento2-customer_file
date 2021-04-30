@@ -51,7 +51,7 @@
      */
     ?>
     <div class="field uploader-container">
-        <!-- ko scope: 'uploader' -->
+        <!-- ko scope: '<?= $block->getUploaderId() ?>' -->
             <!-- ko template: getTemplate() --><!-- /ko -->
         <!-- /ko -->
     </div>
@@ -69,7 +69,7 @@
     "*": {
         "Magento_Ui/js/core/app": {
             "components": {
-                "uploader": {
+                "<?= $block->getUploaderId() ?>": {
                     "component"        : "Bina_CustomerFile/js/form/element/uploader",
                     "label"            : "<?php echo $block->getAttributeLabel() ?>",
                     "allowedExtensions": <?php echo $block->getAttributeAllowedExtensionsJson() ?>,

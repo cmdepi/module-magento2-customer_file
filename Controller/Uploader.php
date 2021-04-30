@@ -1,13 +1,13 @@
 <?php
 /**
  *
- * @description Upload file
+ * @description Uploader controller
  *
  * @author Bina Commerce      <https://www.binacommerce.com>
  * @author C. M. de Picciotto <cmdepicciotto@binacommerce.com>
  *
  */
-namespace Bina\CustomerFile\Controller\File;
+namespace Bina\CustomerFile\Controller;
 
 use Exception;
 use Magento\Framework\App\Action\Action;
@@ -18,7 +18,7 @@ use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\App\Request\Http as HttpRequest;
 use Bina\CustomerFile\Api\FileManagementInterface;
 
-class Upload extends Action implements HttpPostActionInterface
+class Uploader extends Action implements HttpPostActionInterface
 {
     /**
      *

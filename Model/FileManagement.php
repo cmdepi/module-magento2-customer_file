@@ -26,13 +26,6 @@ class FileManagement implements FileManagementInterface
 {
     /**
      *
-     * @var FileInterface
-     *
-     */
-    protected $_attribute;
-
-    /**
-     *
      * @var AttributeMetadataInterface
      *
      */

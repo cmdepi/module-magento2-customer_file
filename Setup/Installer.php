@@ -18,7 +18,7 @@ use Magento\Customer\Setup\CustomerSetup;
 use Magento\Customer\Model\Customer;
 use Bina\CustomerFile\Api\Data\FileInterface;
 
-abstract class AbstractInstaller implements DataPatchInterface
+class Installer implements DataPatchInterface
 {
     /**
      *

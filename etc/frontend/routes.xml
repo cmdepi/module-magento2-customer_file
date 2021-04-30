@@ -14,17 +14,6 @@
         <!--
         /**
          *
-         * @note Custom route
-         *
-         */
-        -->
-        <route id="customerfile" frontName="customerfile">
-            <module name="Bina_CustomerFile"/>
-        </route>
-
-        <!--
-        /**
-         *
          * @note Customer route
          * @note We need to customize this route to be able to use the 'customer/index/viewfile' action
          *

@@ -48,6 +48,20 @@ class Uploader extends Template
 
     /**
      *
+     * @var string|null
+     *
+     */
+    protected $_uploaderId = null;
+
+    /**
+     *
+     * @var string|null
+     *
+     */
+    protected $_uploadUrl = null;
+
+    /**
+     *
      * @var string
      *
      */
@@ -102,26 +116,14 @@ class Uploader extends Template
 
     /**
      *
-     * Get customer
-     *
-     * @return CustomerInterface|null
-     *
-     */
-    public function getCustomer()
-    {
-        return $this->_customer;
-    }
-
-    /**
-     *
-     * Set customer
+     * Init customer
      *
      * @param CustomerInterface $customer
      *
      * @return $this
      *
      */
-    public function setCustomer(CustomerInterface $customer)
+    public function initCustomer(CustomerInterface $customer)
     {
         /**
          *
@@ -140,6 +142,82 @@ class Uploader extends Template
 
     /**
      *
+     * Init uploader ID
+     *
+     * @param string $id
+     *
+     * @return $this
+     *
+     */
+    public function initUploaderId($id)
+    {
+        /**
+         *
+         * @note Set uploader ID
+         *
+         */
+        $this->_uploaderId = $id;
+
+        /**
+         *
+         * @note Return
+         *
+         */
+        return $this;
+    }
+
+    /**
+     *
+     * Init upload URL
+     *
+     * @param string $uri
+     *
+     * @return $this
+     *
+     */
+    public function initUploadUrl($uri)
+    {
+        /**
+         *
+         * @note Set upload URL
+         *
+         */
+        $this->_uploadUrl = $this->_urlBuilder->getUrl($uri);
+
+        /**
+         *
+         * @note Return
+         *
+         */
+        return $this;
+    }
+
+    /**
+     *
+     * Get customer
+     *
+     * @return CustomerInterface|null
+     *
+     */
+    public function getCustomer()
+    {
+        return $this->_customer;
+    }
+
+    /**
+     *
+     * Get uploader ID
+     *
+     * @return string
+     *
+     */
+    public function getUploaderId()
+    {
+        return $this->_uploaderId;
+    }
+
+    /**
+     *
      * Get upload URL
      *
      * @return string
@@ -147,7 +225,7 @@ class Uploader extends Template
      */
     public function getUploadUrl()
     {
-        return $this->_urlBuilder->getUrl('customerfile/file/upload');
+        return $this->_uploadUrl;
     }
 
     /**
