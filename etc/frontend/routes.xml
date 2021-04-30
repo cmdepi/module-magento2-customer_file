@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @description Routes config
+ *
+ * @author Bina Commerce      <https://www.binacommerce.com>
+ * @author C. M. de Picciotto <cmdepicciotto@binacommerce.com>
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <!--
+        /**
+         *
+         * @note Custom route
+         *
+         */
+        -->
+        <route id="customerfile" frontName="customerfile">
+            <module name="Bina_CustomerFile"/>
+        </route>
+
+        <!--
+        /**
+         *
+         * @note Customer route
+         * @note We need to customize this route to be able to use the 'customer/index/viewfile' action
+         *
+         */
+        -->
+        <route id="customer">
+            <module name="Bina_CustomerFile" after="Magento_Customer"/>
+        </route>
+    </router>
+</config>

@@ -1,0 +1,86 @@
+<?php
+/**
+ *
+ * @description Uploader template
+ *
+ * @author Bina Commerce      <https://www.binacommerce.com>
+ * @author C. M. de Picciotto <cmdepicciotto@binacommerce.com>
+ *
+ */
+?>
+
+<?php
+/**
+ *
+ * @var \Bina\CustomerFile\Block\Uploader $block
+ *
+ */
+?>
+
+<?php
+/**
+ *
+ * @note Attribute fieldset
+ *
+ */
+?>
+<fieldset class="fieldset" id="<?= $block->getAttributeCode() ?>">
+    <?php
+    /**
+     *
+     * @note Legend
+     *
+     */
+    ?>
+    <legend class="legend">
+        <?php
+        /**
+         *
+         * @note Title
+         *
+         */
+        ?>
+        <span><?= $block->escapeHtml($block->getAttributeLabel()) ?></span>
+    </legend>
+
+    <?php
+    /**
+     *
+     * @note Uploader
+     *
+     */
+    ?>
+    <div class="field uploader-container">
+        <!-- ko scope: 'uploader' -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</fieldset>
+
+<?php
+/**
+ *
+ * @note Init uploader
+ *
+ */
+?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "uploader": {
+                    "component"        : "Bina_CustomerFile/js/form/element/uploader",
+                    "label"            : "<?php echo $block->getAttributeLabel() ?>",
+                    "allowedExtensions": <?php echo $block->getAttributeAllowedExtensionsJson() ?>,
+                    "fieldAttribute"   : "<?php echo $block->getAttributeCode() ?>",
+                    "value"            : <?php echo $block->getAttributeDataJson() ?>,
+                    "uploaderConfig"   : {
+                        "url": "<?php echo $block->getUploadUrl() ?>"
+                    }
+                }
+            }
+        }
+    }
+}
+</script>
