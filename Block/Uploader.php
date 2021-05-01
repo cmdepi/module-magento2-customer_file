@@ -208,7 +208,7 @@ class Uploader extends Template
      *
      * Get uploader ID
      *
-     * @return string
+     * @return string|null
      *
      */
     public function getUploaderId()
@@ -220,7 +220,7 @@ class Uploader extends Template
      *
      * Get upload URL
      *
-     * @return string
+     * @return string|null
      *
      */
     public function getUploadUrl()
