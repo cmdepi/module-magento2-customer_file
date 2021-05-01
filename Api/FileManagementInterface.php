@@ -17,6 +17,7 @@ interface FileManagementInterface
      *
      * Upload file
      *
+     * @param string $attributeCode
      * @param string $scope
      *
      * @return array
@@ -24,18 +25,19 @@ interface FileManagementInterface
      * @throws LocalizedException
      *
      */
-    public function upload($scope);
+    public function upload($attributeCode, $scope);
 
     /**
      *
      * Get file URL
      *
+     * @param string $attributeCode
      * @param string $file
      *
      * @return string
      *
      */
-    public function getFileUrl($file);
+    public function getFileUrl($attributeCode, $file);
 
     /**
      *

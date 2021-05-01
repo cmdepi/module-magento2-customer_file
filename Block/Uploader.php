@@ -319,7 +319,7 @@ class Uploader extends Template
                 $data[] = [
                     'file' => $value,
                     'name' => $this->getAttributeLabel(),
-                    'url'  => $this->_fileManagement->getFileUrl($value)
+                    'url'  => $this->_fileManagement->getFileUrl($this->getAttributeCode(), $value)
                 ];
             }
         }

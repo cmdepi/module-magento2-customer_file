@@ -20,7 +20,6 @@ use Magento\Customer\Model\FileUploader;
 use Magento\Customer\Model\FileProcessorFactory;
 use Magento\Customer\Model\FileProcessor;
 use Bina\CustomerFile\Api\FileManagementInterface;
-use Bina\CustomerFile\Api\Data\FileInterface;
 
 class FileManagement implements FileManagementInterface
 {
@@ -29,7 +28,7 @@ class FileManagement implements FileManagementInterface
      * @var AttributeMetadataInterface
      *
      */
-    protected $_attributeMetadata;
+    protected $_customerMetadataService;
 
     /**
      *
@@ -56,7 +55,6 @@ class FileManagement implements FileManagementInterface
      *
      * Constructor
      *
-     * @param FileInterface             $attribute
      * @param CustomerMetadataInterface $customerMetadataService
      * @param FileUploaderFactory       $fileUploaderFactory
      * @param FileProcessorFactory      $fileProcessorFactory
@@ -64,7 +62,6 @@ class FileManagement implements FileManagementInterface
      *
      */
     public function __construct(
-        FileInterface             $attribute,
         CustomerMetadataInterface $customerMetadataService,
         FileUploaderFactory       $fileUploaderFactory,
         FileProcessorFactory      $fileProcessorFactory,
@@ -72,10 +69,10 @@ class FileManagement implements FileManagementInterface
     ) {
         /**
          *
-         * @note Init attribute metadata
+         * @note Init customer metadata service
          *
          */
-        $this->_attributeMetadata = $customerMetadataService->getAttributeMetadata($attribute->getAttributeCode());
+        $this->_customerMetadataService = $customerMetadataService;
 
         /**
          *
@@ -103,6 +100,7 @@ class FileManagement implements FileManagementInterface
      *
      * Upload file
      *
+     * @param string $attributeCode
      * @param string $scope
      *
      * @return array
@@ -110,7 +108,7 @@ class FileManagement implements FileManagementInterface
      * @throws LocalizedException
      *
      */
-    public function upload($scope)
+    public function upload($attributeCode, $scope)
     {
         /**
          *
@@ -118,7 +116,7 @@ class FileManagement implements FileManagementInterface
          *
          */
         $fileUploader = $this->_fileUploaderFactory->create([
-            'attributeMetadata' => $this->_attributeMetadata,
+            'attributeMetadata' => $this->_getAttributeMetadata($attributeCode),
             'entityTypeCode'    => CustomerMetadataInterface::ENTITY_TYPE_CUSTOMER,
             'scope'             => $scope
         ]);
@@ -150,12 +148,13 @@ class FileManagement implements FileManagementInterface
      *
      * Get file URL
      *
+     * @param string $attributeCode
      * @param string $file
      *
      * @return string
      *
      */
-    public function getFileUrl($file)
+    public function getFileUrl($attributeCode, $file)
     {
         /**
          *
@@ -170,7 +169,7 @@ class FileManagement implements FileManagementInterface
          * @note Return file URL
          *
          */
-        return $fileProcessor->getViewUrl($file, $this->_attributeMetadata->getFrontendInput());
+        return $fileProcessor->getViewUrl($file, $this->_getAttributeMetadata($attributeCode)->getFrontendInput());
     }
 
     /**
@@ -197,5 +196,19 @@ class FileManagement implements FileManagementInterface
          *
          */
         return $this->_mediaDirectory->getAbsolutePath($filename);
+    }
+
+    /**
+     *
+     * Get attribute metadata
+     *
+     * @param string $attributeCode
+     *
+     * @return AttributeMetadataInterface
+     *
+     */
+    private function _getAttributeMetadata($attributeCode)
+    {
+        return $this->_customerMetadataService->getAttributeMetadata($attributeCode);
     }
 }
