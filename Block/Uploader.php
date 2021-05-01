@@ -156,7 +156,7 @@ class Uploader extends Template
          * @note Set uploader ID
          *
          */
-        $this->_uploaderId = $id;
+        $this->_uploaderId = sprintf('%s-uploader', $id);
 
         /**
          *
