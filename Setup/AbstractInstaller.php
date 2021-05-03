@@ -16,17 +16,9 @@ use Magento\Eav\Model\Entity\Attribute\Set;
 use Magento\Customer\Setup\CustomerSetupFactory;
 use Magento\Customer\Setup\CustomerSetup;
 use Magento\Customer\Model\Customer;
-use Bina\CustomerFile\Api\Data\FileInterface;
 
-class Installer implements DataPatchInterface
+abstract class AbstractInstaller implements DataPatchInterface
 {
-    /**
-     *
-     * @var FileInterface
-     *
-     */
-    protected $_attribute;
-
     /**
      *
      * @var CustomerSetupFactory
@@ -52,25 +44,16 @@ class Installer implements DataPatchInterface
      *
      * Constructor
      *
-     * @param FileInterface            $attribute
      * @param CustomerSetupFactory     $customerSetupFactory
      * @param SetFactory               $attributeSetFactory
      * @param ModuleDataSetupInterface $moduleDataSetup
      *
      */
     public function __construct(
-        FileInterface            $attribute,
         CustomerSetupFactory     $customerSetupFactory,
         SetFactory               $attributeSetFactory,
         ModuleDataSetupInterface $moduleDataSetup
     ) {
-        /**
-         *
-         * @note Init attribute
-         *
-         */
-        $this->_attribute = $attribute;
-
         /**
          *
          * @note Init customer setup factory
@@ -95,6 +78,33 @@ class Installer implements DataPatchInterface
 
     /**
      *
+     * Get attribute code
+     *
+     * @return string
+     *
+     */
+    abstract public function getAttributeCode();
+
+    /**
+     *
+     * Get attribute label
+     *
+     * @return string
+     *
+     */
+    abstract public function getAttributeLabel();
+
+    /**
+     *
+     * Get attribute allowed extensions
+     *
+     * @return array
+     *
+     */
+    abstract public function getAttributeAllowedExtensions();
+
+    /**
+     *
      * {@inheritdoc}
      *
      */
@@ -113,21 +123,21 @@ class Installer implements DataPatchInterface
          * @note Get attribute code
          *
          */
-        $attributeCode = $this->_attribute->getAttributeCode();
+        $attributeCode = $this->getAttributeCode();
 
         /**
          *
          * @note Get attribute label
          *
          */
-        $attributeLabel = $this->_attribute->getAttributeLabel();
+        $attributeLabel = $this->getAttributeLabel();
 
         /**
          *
          * @note Get file extensions
          *
          */
-        $fileExtensions = implode(',', $this->_attribute->getAllowedExtensions());
+        $fileExtensions = implode(',', $this->getAttributeAllowedExtensions());
 
         /**
          *
