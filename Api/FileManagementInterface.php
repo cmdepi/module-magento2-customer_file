@@ -15,6 +15,17 @@ interface FileManagementInterface
 {
     /**
      *
+     * Get allowed extensions
+     *
+     * @param string $attributeCode
+     *
+     * @return array
+     *
+     */
+    public function getAllowedExtensions($attributeCode);
+
+    /**
+     *
      * Upload file
      *
      * @param string $attributeCode

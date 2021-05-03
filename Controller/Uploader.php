@@ -17,7 +17,6 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\App\Request\Http as HttpRequest;
 use Bina\CustomerFile\Api\FileManagementInterface;
-use Bina\CustomerFile\Api\Data\FileInterface;
 
 class Uploader extends Action implements HttpPostActionInterface
 {
@@ -30,23 +29,23 @@ class Uploader extends Action implements HttpPostActionInterface
 
     /**
      *
-     * @var FileInterface
+     * @var string
      *
      */
-    protected $_attribute;
+    protected $_attributeCode;
 
     /**
      *
      * Constructor
      *
      * @param FileManagementInterface $fileManagement
-     * @param FileInterface           $attribute
+     * @param string                  $attributeCode
      * @param Context                 $context
      *
      */
     public function __construct(
         FileManagementInterface $fileManagement,
-        FileInterface           $attribute,
+                                $attributeCode,
         Context                 $context
     ) {
         /**
@@ -58,10 +57,10 @@ class Uploader extends Action implements HttpPostActionInterface
 
         /**
          *
-         * @note Init attribute
+         * @note Init attribute code
          *
          */
-        $this->_attribute = $attribute;
+        $this->_attributeCode = $attributeCode;
 
         /**
          *
@@ -100,7 +99,7 @@ class Uploader extends Action implements HttpPostActionInterface
              * @note Upload
              *
              */
-            $result = $this->_fileManagement->upload($this->_attribute->getAttributeCode(), 'customer');
+            $result = $this->_fileManagement->upload($this->_attributeCode, 'customer');
         }
         catch (Exception $e) {
             /**

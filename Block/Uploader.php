@@ -12,9 +12,9 @@ namespace Bina\CustomerFile\Block;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Customer\Api\CustomerMetadataInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Bina\CustomerFile\Api\FileManagementInterface;
-use Bina\CustomerFile\Api\Data\FileInterface;
 
 class Uploader extends Template
 {
@@ -27,7 +27,7 @@ class Uploader extends Template
 
     /**
      *
-     * @var FileInterface
+     * @var CustomerMetadataInterface
      *
      */
     protected $_attribute;
@@ -71,19 +71,21 @@ class Uploader extends Template
      *
      * Constructor
      *
-     * @param FileManagementInterface $fileManagement
-     * @param FileInterface           $attribute
-     * @param Json                    $json
-     * @param Context                 $context
-     * @param array                   $data
+     * @param FileManagementInterface   $fileManagement
+     * @param string                    $attributeCode
+     * @param CustomerMetadataInterface $customerMetadataService
+     * @param Json                      $json
+     * @param Context                   $context
+     * @param array                     $data
      *
      */
     public function __construct(
-        FileManagementInterface $fileManagement,
-        FileInterface           $attribute,
-        Json                    $json,
-        Context                 $context,
-        array                   $data = []
+        FileManagementInterface   $fileManagement,
+                                  $attributeCode,
+        CustomerMetadataInterface $customerMetadataService,
+        Json                      $json,
+        Context                   $context,
+        array                     $data = []
     ) {
         /**
          *
@@ -97,7 +99,7 @@ class Uploader extends Template
          * @note Init attribute
          *
          */
-        $this->_attribute = $attribute;
+        $this->_attribute = $customerMetadataService->getAttributeMetadata($attributeCode);
 
         /**
          *
@@ -261,7 +263,7 @@ class Uploader extends Template
      */
     public function getAttributeLabel()
     {
-        return __($this->_attribute->getAttributeLabel());
+        return __($this->_attribute->getFrontendLabel());
     }
 
     /**
@@ -273,7 +275,7 @@ class Uploader extends Template
      */
     public function getAttributeAllowedExtensionsJson()
     {
-        return $this->_json->serialize($this->_attribute->getAllowedExtensions());
+        return $this->_json->serialize($this->_fileManagement->getAllowedExtensions($this->getAttributeCode()));
     }
 
     /**

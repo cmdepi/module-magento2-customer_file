@@ -98,6 +98,76 @@ class FileManagement implements FileManagementInterface
 
     /**
      *
+     * Get allowed extensions
+     *
+     * @param string $attributeCode
+     *
+     * @return array
+     *
+     */
+    public function getAllowedExtensions($attributeCode)
+    {
+        /**
+         *
+         * @note Init allowed extensions
+         *
+         */
+        $allowedExtensions = [];
+
+        /**
+         *
+         * @note Get validation rules
+         *
+         */
+        $validationRules = $this->_getAttributeMetadata($attributeCode)->getValidationRules();
+
+        /**
+         *
+         * @note Loop validation rules
+         *
+         */
+        foreach ($validationRules as $validationRule) {
+            /**
+             *
+             * @note Check file extensions
+             *
+             */
+            if ($validationRule->getName() == 'file_extensions') {
+                /**
+                 *
+                 * @note Get allowed extensions
+                 *
+                 */
+                $allowedExtensions = explode(',', $validationRule->getValue());
+
+                /**
+                 *
+                 * @ntoe Format allowed extensions
+                 *
+                 */
+                array_walk($allowedExtensions, function (&$value) {
+                    $value = strtolower(trim($value));
+                });
+
+                /**
+                 *
+                 * @note Break
+                 *
+                 */
+                break;
+            }
+        }
+
+        /**
+         *
+         * @note Return allowed extensions
+         *
+         */
+        return $allowedExtensions;
+    }
+
+    /**
+     *
      * Upload file
      *
      * @param string $attributeCode
