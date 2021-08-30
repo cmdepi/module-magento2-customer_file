@@ -208,10 +208,27 @@ class FileManagement implements FileManagementInterface
 
         /**
          *
+         * @note Get file uploaded data
+         *
+         */
+        $result = $fileUploader->upload();
+
+        /**
+         *
+         * @note Add file URL
+         * @note Fix file URL. For some reason, it is used the file name instead of the file path uploaded. If the customer uploads a file with a name of a file already used, the first file that uses this name is shown
+         *
+         * @see FileUploader::upload()
+         *
+         */
+        $result['url'] = $this->getFileUrl($attributeCode, FileProcessor::TMP_DIR . '/' . ltrim($result['file'], '/'));
+
+        /**
+         *
          * @note Return file uploaded data
          *
          */
-        return $fileUploader->upload();
+        return $result;
     }
 
     /**
